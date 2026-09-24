@@ -1,0 +1,27 @@
+version: 1
+pipeline:
+  build:
+    name: build
+    language: go
+    environment: dev
+
+  lint:
+    name: lint
+    language: go
+    environment: dev
+    needs: [test]
+
+  test:
+    name: test
+    language: go
+    environment: dev
+    needs: [build]
+
+  deploy:
+    name: deploy
+    language: go
+    environment: prod
+    needs: [test, lint]
+
+policy:
+  network: false
